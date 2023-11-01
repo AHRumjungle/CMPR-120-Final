@@ -1,0 +1,3 @@
+#build files and CMake
+build/
+CMakeLists.txt
