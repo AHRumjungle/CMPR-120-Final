@@ -7,47 +7,6 @@ using namespace std;
 //global varibles and stats
 int credits = 0;
 
-void readStats(){
-
-    ofstream oFile;
-
-    oFile.open("stats.txt", ios::app); // will make a stats.txt if not found
-
-    oFile.close();
-
-
-
-    ifstream inFile;
-
-    inFile.open("stats.txt"); //File with all of the statistics involving credits, wins, losses, ect
-
-
-    /*
-    stats.txt file structure:
-
-    line
-    1 | Current Creddits
-    2 | Amount of games played
-    3 | # of Wins
-    4 | # of losses
-    5 | # of credits added
-    6 | # of creddits gained/loss based on # of creddits added
-
-    */
-
-   string output;
-
-   getline(inFile, output); //reading line 1
-    
-    if(output != ""){
-
-        credits = stoi(output);
-    }
-   cout << output; //debug
-
-   inFile.close();
-
-}
 
 void showCreddits(){
 
@@ -92,10 +51,7 @@ void addCreddits(){
 // MAIN FUNCTION //
 int main(){
 
-
-    readStats(); //gets data from 'stats.txt'
-
-    //Main Menu Loop
+    //Main Menue Loop
 
     bool exit = false;
 
@@ -117,7 +73,6 @@ int main(){
         cout << "\t6: To Exit\n";
         cout << endl;
 
-
         int input;
 
         cin >> input;
@@ -127,8 +82,7 @@ int main(){
 
         cout << endl; //spacing
 
-        
-        
+          
         switch(input){
             case(1):
                 showCreddits();
@@ -172,7 +126,7 @@ int main(){
         }
         
 
-        cout << "Loop\n"; //debug
+        //cout << "Loop\n"; //debug
     }
     return 0;
 }
