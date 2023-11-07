@@ -1,10 +1,61 @@
 #include<string>
 #include<iostream>
+#include<iomanip>
+#include<fstream>
 using namespace std;
 
+//global varibles and stats
+int credits = 0;
+
+
+void showCreddits(){
+
+
+   system("cls");
+   cout << "Credits\n";
+   cout << "-------\n";
+   cout << "Current Credits: " << credits << endl;
+
+   cout << endl;
+   system("pause");
+
+
+}
+
+void addCreddits(){
+
+    system("cls");
+    cout << "Add to Balance\n";
+    cout << "--------------\n";
+    cout << "Amount of credits to add: ";
+
+    int creditsToAdd;
+
+    cin >> creditsToAdd;
+
+   
+
+    credits += creditsToAdd;
+
+    cout << endl;
+
+    cout << creditsToAdd << " credits added\n";
+    cout << "Current total: " << credits << endl;
+
+    cout << endl;
+    system("pause");
+
+
+}
+
+
+
+
+
+// MAIN FUNCTION //
 int main(){
 
-    //Main Menu Loop
+    //Main Menue Loop
 
     bool exit = false;
 
@@ -38,17 +89,14 @@ int main(){
 
         cout << endl; //spacing
 
+          
         switch(input){
             case(1):
-                system("cls");
-                cout << "You entered 1: Display my available credit\n";
-                system("pause");
+                showCreddits();
                 break;
 
             case(2):
-                system("cls");
-                cout << "You entered 2: Add credits to my account\n";
-                system("pause");
+                addCreddits();
                 break;
 
             case(3):
@@ -69,8 +117,6 @@ int main(){
                 system("pause");
                 break;
 
-            
-            
             case(6):
                 system("cls");
                 cout << "Thank you for using ABJ software. Good bye!\n";
@@ -85,8 +131,9 @@ int main(){
                 break;
 
         }
-    
+        
 
+        //cout << "Loop\n"; //debug
     }
     return 0;
 }
