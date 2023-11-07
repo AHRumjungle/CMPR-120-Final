@@ -1,8 +1,99 @@
 #include<string>
 #include<iostream>
+#include<iomanip>
+#include<fstream>
 using namespace std;
 
+//global varibles and stats
+int credits = 0;
+
+void readStats(){
+
+    ofstream oFile;
+
+    oFile.open("stats.txt", ios::app); // will make a stats.txt if not found
+
+    oFile.close();
+
+
+
+    ifstream inFile;
+
+    inFile.open("stats.txt"); //File with all of the statistics involving credits, wins, losses, ect
+
+
+    /*
+    stats.txt file structure:
+
+    line
+    1 | Current Creddits
+    2 | Amount of games played
+    3 | # of Wins
+    4 | # of losses
+    5 | # of credits added
+    6 | # of creddits gained/loss based on # of creddits added
+
+    */
+
+   string output;
+
+   getline(inFile, output); //reading line 1
+    
+    if(output != ""){
+
+        credits = stoi(output);
+    }
+   cout << output; //debug
+
+   inFile.close();
+
+}
+
+void showCreddits(){
+
+
+   system("cls");
+   cout << "Credits\n";
+   cout << "-------\n";
+   cout << "Current Credits: " << credits << endl;
+   system("pause");
+
+
+}
+
+void addCreddits(){
+
+    system("cls");
+    cout << "Add to Balance\n";
+    cout << "--------------\n";
+    cout << "Amount of credits to add: ";
+
+    int creditsToAdd;
+
+    cin >> creditsToAdd;
+
+   
+
+    credits += creditsToAdd;
+
+    cout << endl;
+
+    cout << creditsToAdd << " credtis added\n";
+    cout << "Current toltal: " << credits << endl;
+    system("pause");
+
+
+}
+
+
+
+
+
+// MAIN FUNCTION //
 int main(){
+
+
+    readStats(); //gets data from 'stats.txt'
 
     //Main Menu Loop
 
@@ -26,31 +117,25 @@ int main(){
         cout << "\t6: To Exit\n";
         cout << endl;
 
-      
-        int input = static_cast<int>(cin.get()); //caputre as a charecter for safe input
-        cin.ignore();
-      
-        // Uses ASCII codes so
-        // '1' starts at 49
-        // '2' is 50 and so on
 
-        input = input - 48; //offset for correct value
+        int input;
+
+        cin >> input;
+        
 
         //cout << input; //debug
 
         cout << endl; //spacing
 
+        
+        
         switch(input){
             case(1):
-                system("cls");
-                cout << "You entered 1: Display my available credit\n";
-                system("pause");
+                showCreddits();
                 break;
 
             case(2):
-                system("cls");
-                cout << "You entered 2: Add credits to my account\n";
-                system("pause");
+                addCreddits();
                 break;
 
             case(3):
@@ -71,8 +156,6 @@ int main(){
                 system("pause");
                 break;
 
-            
-            
             case(6):
                 system("cls");
                 cout << "Thank you for using ABJ software. Good bye!\n";
@@ -87,8 +170,9 @@ int main(){
                 break;
 
         }
-    
+        
 
+        cout << "Loop\n"; //debug
     }
     return 0;
 }
