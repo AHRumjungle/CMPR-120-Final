@@ -15,6 +15,8 @@ void showCreddits(){
    cout << "Credits\n";
    cout << "-------\n";
    cout << "Current Credits: " << credits << endl;
+
+   cout << endl;
    system("pause");
 
 
@@ -37,8 +39,10 @@ void addCreddits(){
 
     cout << endl;
 
-    cout << creditsToAdd << " credtis added\n";
-    cout << "Current toltal: " << credits << endl;
+    cout << creditsToAdd << " credits added\n";
+    cout << "Current total: " << credits << endl;
+
+    cout << endl;
     system("pause");
 
 
