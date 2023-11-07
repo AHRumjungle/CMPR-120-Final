@@ -27,14 +27,12 @@ int main(){
         cout << endl;
 
       
-        int input = static_cast<int>(cin.get()); //caputre as a charecter for safe input
-        cin.ignore();
-      
-        // Uses ASCII codes so
-        // '1' starts at 49
-        // '2' is 50 and so on
+        int input;
+        
+        cin >> input; //More reliable, but less secure
 
-        input = input - 48; //offset for correct value
+        //Will change in the future
+        //Add a function for safe int input?
 
         //cout << input; //debug
 
