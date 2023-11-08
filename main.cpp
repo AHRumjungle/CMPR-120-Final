@@ -4,17 +4,21 @@
 #include<fstream>
 using namespace std;
 
-//global varibles and stats
-int credits = 0;
+//global varibles, constants and stats
+double balance = 0.0;
+
+const double MAX_ALLOWED = 20.0;
 
 
-void showCreddits(){
+void showBalance(){
 
 
    system("cls");
-   cout << "Credits\n";
+   cout << "Balance\n";
    cout << "-------\n";
-   cout << "Current Credits: " << credits << endl;
+
+   cout << fixed << showpoint << setprecision(2); //formating
+   cout << "Current Balance: $" << balance << endl;
 
    cout << endl;
    system("pause");
@@ -22,30 +26,49 @@ void showCreddits(){
 
 }
 
-void addCreddits(){
+void addBalance(){
 
     system("cls");
     cout << "Add to Balance\n";
     cout << "--------------\n";
-    cout << "Amount of credits to add: ";
+    cout << "Amount of money to add: $";
 
-    int creditsToAdd;
+    double balanceToAdd;
 
-    cin >> creditsToAdd;
+    cin >> balanceToAdd; //change to be safe later
 
+    if(balanceToAdd <= 0){
+        cout << "==ERROR==\n";
+        cout << "Balance to be added must be greater than $0\n";
+        cout << endl;
+        system("pause");
+        return;
+
+    }
+
+    //check if balance will exceed
+   if(balance + balanceToAdd > 20.00){
+
+        cout << "==ERROR==\n";
+        cout << "Added balance will exceede the allowed maximum added by user of $20\n";
+        cout << endl;
+        system("pause");
+        return;
+
+   }
    
 
-    credits += creditsToAdd;
-
+    balance += balanceToAdd;
     cout << endl;
+    cout << "$" << balanceToAdd << " dollars added\n";
 
-    cout << creditsToAdd << " credits added\n";
-    cout << "Current total: " << credits << endl;
+    cout << fixed << showpoint << setprecision(2); //formating
+    cout << "Current total: $" << balance << endl;
 
     cout << endl;
     system("pause");
 
-
+    
 }
 
 
@@ -69,8 +92,8 @@ int main(){
         cout << endl;
         cout << "Please select one of the following:\n";
         cout << endl;
-        cout << "\t1: Display my available credits\n";
-        cout << "\t2: Add credits to my accout\n";
+        cout << "\t1: Display my available balance\n";
+        cout << "\t2: Add money to my accout\n";
         cout << "\t3: Play the Guessing Game\n";
         cout << "\t4: Display My Statistics\n";
         cout << "\t5: Save My Statistics\n";
@@ -83,7 +106,7 @@ int main(){
         cin >> input; //More reliable, but less secure
 
         //Will change in the future
-        //Add a function for safe int input?
+        //Add a function for safe int input through input validation?
 
         //cout << input; //debug
 
@@ -92,11 +115,11 @@ int main(){
           
         switch(input){
             case(1):
-                showCreddits();
+                showBalance();
                 break;
 
             case(2):
-                addCreddits();
+                addBalance();
                 break;
 
             case(3):
