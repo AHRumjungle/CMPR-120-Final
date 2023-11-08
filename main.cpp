@@ -4,11 +4,40 @@
 #include<fstream>
 using namespace std;
 
+// Refrence List
+// - stoi() -- Google
+// - try/catch -- Google
+//
+
+
 //global varibles, constants and stats
 double balance = 0.0;
 
-const double MAX_ALLOWED = 20.0;
+const double MAX_ALLOWED = 20.0; //Maximum the balance is allowed to reach from user inputed money
 
+
+int safeIntInput(){
+
+    string sInput;
+
+    cin >> sInput;
+
+    int Iinput;
+
+    try{
+        Iinput = stoi(sInput);
+    }
+    catch(std::invalid_argument){
+        cout << endl << "=ERROR\n" << "Invalid input\n" << endl << endl;
+        system("pause");
+        return -1;
+    }
+
+       Iinput = stoi(sInput);
+
+    return Iinput;
+    
+}
 
 void showBalance(){
 
@@ -35,7 +64,7 @@ void addBalance(){
 
     double balanceToAdd;
 
-    cin >> balanceToAdd; //change to be safe later
+    balanceToAdd = safeIntInput(); //Need a safeDoubleInput() function
 
     if(balanceToAdd <= 0){
         cout << "==ERROR==\n";
@@ -103,7 +132,9 @@ int main(){
       
         int input;
         
-        cin >> input; //More reliable, but less secure
+        input = safeIntInput();
+
+        //cin >> input; //More reliable, but less secure
 
         //Will change in the future
         //Add a function for safe int input through input validation?
@@ -146,6 +177,9 @@ int main(){
                 system("pause");
                 exit = true;
                 break;
+
+            case(-1):
+                break; //code for invalid input
 
             default:
                 system("cls");
