@@ -6,6 +6,7 @@ using namespace std;
 
 // Refrence List
 // - stoi() -- Google
+// - stod() -- Google
 // - try/catch -- Google
 //
 
@@ -28,7 +29,7 @@ int safeIntInput(){
         Iinput = stoi(sInput);
     }
     catch(std::invalid_argument){
-        cout << endl << "=ERROR\n" << "Invalid input\n" << endl << endl;
+        cout << endl << "=ERROR=\n" << "Invalid input\n" << endl << endl;
         system("pause");
         return -1;
     }
@@ -41,6 +42,29 @@ int safeIntInput(){
 
 ////////////////////
 
+double safeDoubleInput(){
+
+    string sInput;
+
+    cin >> sInput;
+
+    double Dinput;
+
+    try{
+        Dinput = stod(sInput);
+    }
+    catch(std::invalid_argument){
+        cout << endl << "=ERROR=\n" << "Invalid input\n" << endl << endl;
+        system("pause");
+        return -1;
+    }
+
+       Dinput = stod(sInput);
+
+    return Dinput;
+}
+
+//////////////////
 void showBalance(){
 
 
@@ -68,7 +92,7 @@ void addBalance(){
 
     double balanceToAdd;
 
-    balanceToAdd = safeIntInput(); //Need a safeDoubleInput() function
+    balanceToAdd = safeDoubleInput(); 
 
     if(balanceToAdd <= 0){
         cout << "==ERROR==\n";
