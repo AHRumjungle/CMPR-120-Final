@@ -39,6 +39,8 @@ int safeIntInput(){
     
 }
 
+////////////////////
+
 void showBalance(){
 
 
@@ -54,6 +56,8 @@ void showBalance(){
 
 
 }
+
+/////////////////////
 
 void addBalance(){
 
@@ -101,6 +105,10 @@ void addBalance(){
 }
 
 
+// add one of these? bool YNChoice(){}
+
+
+
 /*
 Code segment made by Blake DeFrancesco
 CMPR 120
@@ -114,11 +122,26 @@ void mainGame(){
 
     system("cls");
 
+    //Checking balance
+
+    if(balance < 1.0){
+        cout << fixed << showpoint << setprecision(2);
+        cout << "Uh oh! Your current balance of: $" << balance << " is not enough money to play.\n";
+        cout << "Please add more funds.\n" << endl;
+        system("pause");
+        return;
+    }
+
+   
+
     cout << "Hello! I'm thinking of a number between 1 and 10." << endl; //Starting prompts which explain the game and how it works
 
 	cout << "If you guess correctly i'll reward you with $2!" << endl; 
 
 	cout << "However, if you lose I will have to take $1 out of your account. Would you like to play?" << endl;
+
+    cout << fixed << showpoint << setprecision(2);
+    cout << "Current Balance: $" << balance << endl;
 
 	cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
 
@@ -128,10 +151,6 @@ void mainGame(){
 
 	while (true) //Infintely looping statement which will repeat the program as long as the user keeps entering 'Y' to continue. Otherwise the program will terminate.
 	{
-
-
-
-        
 
         while(true){
 
@@ -169,6 +188,9 @@ void mainGame(){
 
 			cout << "Would you like to play again?" << endl;
 
+            cout << fixed << showpoint << setprecision(2);
+            cout << "Current Balance: $" << balance << endl;
+
 			cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
 
 			cin >> choice;
@@ -188,6 +210,9 @@ void mainGame(){
 
 			cout << "Would you like to play again?" << endl;
 
+            cout << fixed << showpoint << setprecision(2);
+            cout << "Current Balance: $" << balance << endl;
+
 			cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
 
 			cin >> choice;
@@ -195,7 +220,7 @@ void mainGame(){
 			if (choice == 'N') 
 			{
 				return; //NOTE: This are to terminate the program if the player enters 'N' for no. Replace this with code to direct player back to the main menu.
-			}
+			}           // Done
 		}
 		continue;
 	}
