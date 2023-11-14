@@ -13,6 +13,9 @@ using namespace std;
 
 //global varibles, constants and stats
 double balance = 0.0;
+int totalGames = 0;
+int totalWins = 0;
+int totalLosses = 0;
 
 const double MAX_ALLOWED = 20.0; //Maximum the balance is allowed to reach from user inputed money
 
@@ -131,6 +134,19 @@ void addBalance(){
 }
 
 
+/////////////
+
+void displayStats(){
+    system("cls");
+    cout << "Current Statistics\n";
+    cout << "==================\n";
+    cout << "Total Games: " << totalGames << endl;
+    cout << "Total Wins: " << totalWins << endl;
+    cout << "total Losses: " << totalLosses << endl;
+    cout << endl;
+    system("pause");
+}
+
 //Add one of these?: bool YNChoice(){}
 //Or even a 'safeCharInput()' function
 
@@ -179,7 +195,7 @@ void mainGame(){
 	while (true) //Infintely looping statement which will repeat the program as long as the user keeps entering 'Y' to continue. Otherwise the program will terminate.
 	{
 
-        while(true){ //Replace with a slightly safer system in future
+        while(true){ //Replace with a slightly safer and cleaner system in future
 
             cin >> choice; //prompts user for their choice
 
@@ -211,6 +227,8 @@ void mainGame(){
 		{
 			cout << "\nWell done! You guessed the number correctly! Here's $2!" << endl;
 
+            totalWins++;
+            totalGames++;
 			balance += 2; //code for giving player $2 goes here
 
 			cout << "Would you like to play again?" << endl;
@@ -220,7 +238,7 @@ void mainGame(){
 
 			cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
 
-			cin >> choice; //Replace with a slightly safer system in future
+			cin >> choice; //Replace with a slightly safer and cleaner system in future
 
 			if (choice == 'N') 
 			{
@@ -233,6 +251,8 @@ void mainGame(){
 
 			cout << "$1 will be deducted from your account." << endl;
 
+            totalLosses++;
+            totalGames++;
 			balance -= 1; //code for deducting $1 goes here
 
 			cout << "Would you like to play again?" << endl;
@@ -242,7 +262,7 @@ void mainGame(){
 
 			cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
 
-			cin >> choice; //Replace with a slightly safer system in future
+			cin >> choice; //Replace with a slightly safer and cleaner system in future
 
 			if (choice == 'N') 
 			{
@@ -312,8 +332,7 @@ int main(){
 
             case(4):
                 system("cls");
-                cout << "You entered 4: Display My Statistics\n";
-                system("pause");
+                displayStats();
                 break;
 
             case(5):
