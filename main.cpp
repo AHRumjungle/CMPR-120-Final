@@ -101,6 +101,92 @@ void addBalance(){
 }
 
 
+/*
+Code segment made by Blake DeFrancesco
+CMPR 120
+November 9, 2023
+*/
+
+//NOTE: Add code that checks the balance of the player. If their balance contains enough credits to play, let them play.
+//
+
+void mainGame(){
+    cout << "Hello! I'm thinking of a number between 1 and 10." << endl; //Starting prompts which explain the game and how it works
+
+	cout << "If you guess correctly i'll reward you with $2!" << endl; 
+
+	cout << "However, if you lose I will have to take $1 out of your account. Would you like to play?" << endl;
+
+	cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
+
+	char choice; //Establishes the value for either continuing or not continuing as 'choice'
+
+	cin >> choice; //prompts user for their choice
+
+	while (true) //Infintely looping statement which will repeat the program as long as the user keeps entering 'Y' to continue. Otherwise the program will terminate.
+	{
+		switch (choice) //switch statement either lets user continue if they type 'Y' for yes or redirects them to main menu if they type 'N' for no
+		{
+		case 'Y': break;
+			break;
+		case 'N': //enter code for returning to original menu here
+			break;
+		}
+		
+		srand((unsigned)time(NULL)); //Establishes a random number calculation (srand) utilizing the seed (time(Null)). The seed changes every second which randomizes the number outputted. 
+
+		int randomNumber = 1 + (rand() % 10); //Establishes the random number as an integer within the range of 1 to 10 by performing the modulus of our random number function (rand()) and adding 1 to the result
+
+		cout << "\nAlright! Guess what number i'm thinking of!" << endl; //prompts user to input their guess
+
+		cout << "Remember, it's between 1 and 10!\n" << endl;
+
+		int guess; //Establishes user input under the integer 'guess'
+
+		cin >> guess; //prompts user to input their guess 
+
+		if (guess == randomNumber) //if the if statement is true, it means the player guessed right and is rewarded
+		{
+			cout << "\nWell done! You guessed the number correctly! Here's $2!" << endl;
+
+			//code for giving player $2 goes here
+
+			cout << "Would you like to play again?" << endl;
+
+			cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
+
+			cin >> choice;
+
+			if (choice == 'N') 
+			{
+				return; //NOTE: This are to terminate the program if the player enters 'N' for no. Replace this with code to direct player back to the main menu.
+			}
+		}
+		else //if the if statement is false, it means the player guessed incorrectly and is punished
+		{
+			cout << "\nUnfortunately you did not guess the number, better luck next time!" << endl;
+
+			cout << "$1 will be deducted from your account." << endl;
+
+			//code for deducting $1 goes here
+
+			cout << "Would you like to play again?" << endl;
+
+			cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
+
+			cin >> choice;
+
+			if (choice == 'N') 
+			{
+				return; //NOTE: This are to terminate the program if the player enters 'N' for no. Replace this with code to direct player back to the main menu.
+			}
+		}
+		continue;
+	}
+}
+
+
+
 
 
 
@@ -154,9 +240,7 @@ int main(){
                 break;
 
             case(3):
-                system("cls");
-                cout << "You entered 3: Play the Guessing Game\n";
-                system("pause");
+                mainGame();
                 break;
 
             case(4):
