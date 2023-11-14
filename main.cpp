@@ -111,6 +111,9 @@ November 9, 2023
 //
 
 void mainGame(){
+
+    system("cls");
+
     cout << "Hello! I'm thinking of a number between 1 and 10." << endl; //Starting prompts which explain the game and how it works
 
 	cout << "If you guess correctly i'll reward you with $2!" << endl; 
@@ -121,17 +124,30 @@ void mainGame(){
 
 	char choice; //Establishes the value for either continuing or not continuing as 'choice'
 
-	cin >> choice; //prompts user for their choice
+	
 
 	while (true) //Infintely looping statement which will repeat the program as long as the user keeps entering 'Y' to continue. Otherwise the program will terminate.
 	{
-		switch (choice) //switch statement either lets user continue if they type 'Y' for yes or redirects them to main menu if they type 'N' for no
-		{
-		case 'Y': break;
-			break;
-		case 'N': //enter code for returning to original menu here
-			break;
-		}
+
+
+
+        
+
+        while(true){
+
+            cin >> choice; //prompts user for their choice
+
+            if(choice == 'N'){
+            return; //Boot player to main menue
+            }   
+            else if(choice == 'Y'){
+                break; //Play the game
+            }
+
+        }
+
+
+		
 		
 		srand((unsigned)time(NULL)); //Establishes a random number calculation (srand) utilizing the seed (time(Null)). The seed changes every second which randomizes the number outputted. 
 
@@ -143,13 +159,13 @@ void mainGame(){
 
 		int guess; //Establishes user input under the integer 'guess'
 
-		cin >> guess; //prompts user to input their guess 
+		guess = safeIntInput(); //prompts user to input their guess 
 
 		if (guess == randomNumber) //if the if statement is true, it means the player guessed right and is rewarded
 		{
 			cout << "\nWell done! You guessed the number correctly! Here's $2!" << endl;
 
-			//code for giving player $2 goes here
+			balance += 2; //code for giving player $2 goes here
 
 			cout << "Would you like to play again?" << endl;
 
@@ -168,7 +184,7 @@ void mainGame(){
 
 			cout << "$1 will be deducted from your account." << endl;
 
-			//code for deducting $1 goes here
+			balance -= 1; //code for deducting $1 goes here
 
 			cout << "Would you like to play again?" << endl;
 
