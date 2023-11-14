@@ -16,6 +16,7 @@ double balance = 0.0;
 
 const double MAX_ALLOWED = 20.0; //Maximum the balance is allowed to reach from user inputed money
 
+///////////////////
 
 int safeIntInput(){
 
@@ -40,7 +41,7 @@ int safeIntInput(){
     
 }
 
-////////////////////
+/////////////////////////
 
 double safeDoubleInput(){
 
@@ -64,7 +65,8 @@ double safeDoubleInput(){
     return Dinput;
 }
 
-//////////////////
+///////////////////
+
 void showBalance(){
 
 
@@ -81,7 +83,7 @@ void showBalance(){
 
 }
 
-/////////////////////
+//////////////////
 
 void addBalance(){
 
@@ -129,7 +131,8 @@ void addBalance(){
 }
 
 
-// add one of these? bool YNChoice(){}
+//Add one of these?: bool YNChoice(){}
+//Or even a 'safeCharInput()' function
 
 
 
@@ -176,7 +179,7 @@ void mainGame(){
 	while (true) //Infintely looping statement which will repeat the program as long as the user keeps entering 'Y' to continue. Otherwise the program will terminate.
 	{
 
-        while(true){
+        while(true){ //Replace with a slightly safer system in future
 
             cin >> choice; //prompts user for their choice
 
@@ -217,7 +220,7 @@ void mainGame(){
 
 			cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
 
-			cin >> choice;
+			cin >> choice; //Replace with a slightly safer system in future
 
 			if (choice == 'N') 
 			{
@@ -239,7 +242,7 @@ void mainGame(){
 
 			cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
 
-			cin >> choice;
+			cin >> choice; //Replace with a slightly safer system in future
 
 			if (choice == 'N') 
 			{
@@ -287,8 +290,7 @@ int main(){
 
         //cin >> input; //More reliable, but less secure
 
-        //Will change in the future
-        //Add a function for safe int input through input validation?
+        //Add a function for safe int input through input validation? - Done
 
         //cout << input; //debug
 
