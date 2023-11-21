@@ -25,7 +25,7 @@ void addBalance(double&); //Pass balance through
 void displayStats(double&, string&, int&, int&, int&, double&, double&); //All
 void saveStats(double&, string&, int&, int&, int&, double&, double&); //All
 void mainGame(double&, string&, int&, int&, int&, double&, double&); //All
-void getPlayerName(string&); //pass name through
+void getPlayerName(string&); //Pass name through
 
 /////////////////////////////
 
@@ -38,7 +38,7 @@ int main(){
 
     double balance = 0.0;       
 
-    string playerName;          
+    string playerName = "";          
 
     int totalGames = 0;         
     int totalWins = 0;          
@@ -56,13 +56,13 @@ int main(){
     if(playerName == ""){
         getPlayerName(playerName);
     }
+    //Add a 'config.txt' file to load default configs?
 
     //Run
     mainMenue(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss);
 
 
 }
-
 
 
 ///////////////////
@@ -480,7 +480,6 @@ void getPlayerName(string& playerName){
         cout << "Welcome to ABJ softwear!\n";
         cout << "Please enter your name to continue:\n";
 
-        
         
         getline(cin, playerName);
         
