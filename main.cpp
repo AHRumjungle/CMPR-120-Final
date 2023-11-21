@@ -8,7 +8,8 @@ using namespace std;
 // - stoi() -- Google
 // - stod() -- Google
 // - try/catch -- Google
-
+// - string.substr() -- Google
+// - string.find -- Google
 
 //////////////////////////////
 
@@ -18,7 +19,7 @@ const double WIN_AMOUNT = 2.0; //Amount of money given to the user if they win
 const double LOSE_AMOUNT = 1.0; //Amount of money given to the user if they lose
 
 // Prototype Functions //
-void mainMenue(double&, string&, int&, int&, int&, double&, double&); //All
+void mainmenu(double&, string&, int&, int&, int&, double&, double&); //All
 int safeIntInput(); //No pass through
 double safeDoubleInput(); //No pass through
 char safeCharInput(); //No pass through
@@ -30,7 +31,6 @@ void mainGame(double&, string&, int&, int&, int&, double&, double&); //All
 void getPlayerName(string&); //Pass name through
 
 /////////////////////////////
-
 
 
 // Main Function //
@@ -61,7 +61,7 @@ int main(){
     //Add a 'config.txt' file to load default configs?
 
     //Run
-    mainMenue(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss);
+    mainmenu(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss);
 
 
 }
@@ -190,9 +190,7 @@ void addBalance(double& balance){
     
 }
 
-
 /////////////
-
 
 void displayStats(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
     system("cls");
@@ -214,17 +212,20 @@ void displayStats(double& balance, string& playerName, int& totalGames, int& tot
 
 ////////////////////
 
+
 /*
 Code segment made by Jan
 CMPR 120
 November 21, 2023
 */
 
-
-
 void saveStats(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
     
-    string fileName = "Stats.txt";
+
+    string userFirstName = playerName.substr(0, playerName.find(" ")); //Will extract the first word in the player name
+
+    //File name will need to be the user's name
+    string fileName = userFirstName + ".txt"; 
 
     ofstream outFile;
     outFile.open(fileName);
@@ -297,7 +298,7 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
         choice = safeCharInput(); //prompts user for their choicE
 
         if(choice == 'N'){
-            return; //Boot player to main menue
+            return; //Boot player to main menu
         }   
         else if(choice == 'Y'){
             break; //Play the game
@@ -387,13 +388,10 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 	}
 }
 
-
-
 /////////////////
 
-
-//Main Menue Loop
-void mainMenue(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
+//Main menu Loop
+void mainmenu(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
 
 
     bool exit = false;
@@ -404,7 +402,7 @@ void mainMenue(double& balance, string& playerName, int& totalGames, int& totalW
 
         cout << "*** ABJ ***\n";
         cout << endl;
-        cout << "*** MAIN MENUE ***\n";
+        cout << "*** MAIN menu ***\n";
         cout << endl;
         cout << "Please select one of the following:\n";
         cout << endl;
@@ -479,7 +477,7 @@ void mainMenue(double& balance, string& playerName, int& totalGames, int& totalW
 void getPlayerName(string& playerName){
     while(true){
         system("cls");
-        cout << "Welcome to ABJ softwear!\n";
+        cout << "Welcome to ABJ software!\n";
         cout << "Please enter your name to continue:\n";
 
         
