@@ -8,14 +8,14 @@ using namespace std;
 // - stoi() -- Google
 // - stod() -- Google
 // - try/catch -- Google
-//
+
+
+//////////////////////////////
 
 //Global Constants
 const double MAX_ALLOWED = 20.0; //Maximum the balance is allowed to reach from user inputed money
 
-
-
-// Prototype Functions
+// Prototype Functions //
 void mainMenue(double&, string&, int&, int&, int&, double&, double&); //All
 int safeIntInput(); //No pass through
 double safeDoubleInput(); //No pass through
@@ -23,10 +23,16 @@ void showBalance(double&); //Pass balance through
 void addBalance(double&); //Pass balance through
 void displayStats(double&, string&, int&, int&, int&, double&, double&); //All
 void mainGame(double&, string&, int&, int&, int&, double&, double&); //All
-//
 
+/////////////////////////////
+
+
+
+// Main Function //
 int main(){
-    //Establish all of the 'semi-global' varibles
+    
+    //Establish all of the passthrough varibles
+
     double balance = 0.0;       
 
     string playerName;          
@@ -37,7 +43,7 @@ int main(){
     double totalMoneyWon = 0;   
     double totalMoneyLoss = 0;   
 
-    //Passthrough for all functions:
+    //Passthrough for all varibles:
     //double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss
 
     //Short pass through
@@ -50,10 +56,6 @@ int main(){
 
 }
 
-
-
-//global constants and stats 
-//TRANSLATE TO PASS THROUGHS IDK
 
 
 ///////////////////
@@ -173,6 +175,7 @@ void addBalance(double& balance){
 
 /////////////
 
+
 void displayStats(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
     system("cls");
     cout << "Current Statistics\n";
@@ -184,9 +187,9 @@ void displayStats(double& balance, string& playerName, int& totalGames, int& tot
     system("pause");
 }
 
+
 //Add one of these?: bool YNChoice(){}
 //Or even a 'safeCharInput()' function
-
 
 
 /*
@@ -324,12 +327,12 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
 
 
-///
+///////////
 
 
-
+//Main Menue Loop
 void mainMenue(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
-    //Main Menue Loop
+
 
     bool exit = false;
 
@@ -396,8 +399,8 @@ void mainMenue(double& balance, string& playerName, int& totalGames, int& totalW
                 exit = true;
                 break;
 
-            case(-1):
-                break; //code for invalid input
+            case(-1)://code for invalid input
+                break; 
 
             default:
                 system("cls");
