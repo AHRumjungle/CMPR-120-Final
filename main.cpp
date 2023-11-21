@@ -195,9 +195,16 @@ void displayStats(double& balance, string& playerName, int& totalGames, int& tot
     system("cls");
     cout << "Current Statistics\n";
     cout << "==================\n";
+    cout << "Player Name: " << playerName << endl;
+    cout << "Date Time: " << __DATE__ << " " << __TIME__ << endl;
     cout << "Total Games: " << totalGames << endl;
     cout << "Total Wins: " << totalWins << endl;
-    cout << "total Losses: " << totalLosses << endl;
+    cout << "Total Losses: " << totalLosses << endl;
+
+    cout << fixed << showpoint << setprecision(2); //Formating
+    cout << "Total Money Won: $" << totalMoneyWon << endl;
+    cout << "Total Money Lost: $" << totalMoneyLoss << endl;
+
     cout << endl;
     system("pause");
 }
@@ -295,7 +302,9 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
             totalWins++;
             totalGames++;
+            totalMoneyWon += 2;
 			balance += 2; //code for giving player $2 goes here
+
 
 			cout << "Would you like to play again?" << endl;
 
@@ -319,6 +328,7 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
             totalLosses++;
             totalGames++;
+            totalMoneyLoss += 1;
 			balance -= 1; //code for deducting $1 goes here
 
 			cout << endl << "Would you like to play again?" << endl;
@@ -438,7 +448,8 @@ void getPlayerName(string& playerName){
         cout << "Welcome to ABJ softwear!\n";
         cout << "Please enter your name to continue:\n";
 
-        getline(cin, playerName);
+        cin.ignore();
+        getline(cin, playerName); //fix
 
         cout << endl;
         cout << playerName << endl;
