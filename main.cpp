@@ -24,6 +24,7 @@ void showBalance(double&); //Pass balance through
 void addBalance(double&); //Pass balance through
 void displayStats(double&, string&, int&, int&, int&, double&, double&); //All
 void mainGame(double&, string&, int&, int&, int&, double&, double&); //All
+void getPlayerName(string&); //pass name through
 
 /////////////////////////////
 
@@ -50,6 +51,10 @@ int main(){
     //Short pass through
     //double&, string&, int&, int&, int&, double&, double&
 
+    //If there is no player name
+    if(playerName == ""){
+        getPlayerName(playerName);
+    }
 
     //Run
     mainMenue(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss);
@@ -240,10 +245,12 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
 	char choice; //Establishes the value for either continuing or not continuing as 'choice'
 
-    while(true){
+
+    //Inital Choice
+    while(true){ 
 
         choice = safeCharInput(); //prompts user for their choicE
-        
+
         if(choice == 'N'){
             return; //Boot player to main menue
         }   
@@ -253,7 +260,9 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
     }
 
-	while (true) //Infintely looping statement which will repeat the program as long as the user keeps entering 'Y' to continue. Otherwise the program will terminate.
+    //Infintely looping statement which will repeat the program as long as the user keeps entering 'Y' to continue. 
+    //Otherwise the program will terminate.
+	while (true)
 	{
 
         //Checking balance
@@ -264,9 +273,6 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
             system("pause");
             return;
         }
-
-
-
 
 
 		system("cls"); //Clear Output
@@ -335,7 +341,7 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
 
 
-///////////
+/////////////////
 
 
 //Main Menue Loop
@@ -420,5 +426,28 @@ void mainMenue(double& balance, string& playerName, int& totalGames, int& totalW
         
 
         //cout << "Loop\n"; //debug
+    }
+}
+
+
+/////////////////
+
+void getPlayerName(string& playerName){
+    while(true){
+        system("cls");
+        cout << "Welcome to ABJ softwear!\n";
+        cout << "Please enter your name to continue:\n";
+
+        getline(cin, playerName);
+
+        cout << endl;
+        cout << playerName << endl;
+
+        cout << "Is this your correct name?(Y, N): ";
+        char choice = safeCharInput();
+
+        if(choice == 'Y'){
+            return;
+        }
     }
 }
