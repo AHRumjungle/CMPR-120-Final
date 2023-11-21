@@ -10,14 +10,51 @@ using namespace std;
 // - try/catch -- Google
 //
 
-
-//global varibles, constants and stats
-double balance = 0.0;
-int totalGames = 0;
-int totalWins = 0;
-int totalLosses = 0;
-
+//Global Constants
 const double MAX_ALLOWED = 20.0; //Maximum the balance is allowed to reach from user inputed money
+
+
+
+// Prototype Functions
+void mainMenue(double&, string&, int&, int&, int&, double&, double&); //All
+int safeIntInput(); //No pass through
+double safeDoubleInput(); //No pass through
+void showBalance(double&); //Pass balance through
+void addBalance(double&); //Pass balance through
+void displayStats(double&, string&, int&, int&, int&, double&, double&); //All
+void mainGame(double&, string&, int&, int&, int&, double&, double&); //All
+//
+
+int main(){
+    //Establish all of the 'semi-global' varibles
+    double balance = 0.0;       
+
+    string playerName;          
+
+    int totalGames = 0;         
+    int totalWins = 0;          
+    int totalLosses = 0;        
+    double totalMoneyWon = 0;   
+    double totalMoneyLoss = 0;   
+
+    //Passthrough for all functions:
+    //double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss
+
+    //Short pass through
+    //double&, string&, int&, int&, int&, double&, double&
+
+
+    //Run
+    mainMenue(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss);
+
+
+}
+
+
+
+//global constants and stats 
+//TRANSLATE TO PASS THROUGHS IDK
+
 
 ///////////////////
 
@@ -70,7 +107,7 @@ double safeDoubleInput(){
 
 ///////////////////
 
-void showBalance(){
+void showBalance(double& balance){
 
 
    system("cls");
@@ -88,7 +125,7 @@ void showBalance(){
 
 //////////////////
 
-void addBalance(){
+void addBalance(double& balance){
 
     system("cls");
     cout << "Add to Balance\n";
@@ -136,7 +173,7 @@ void addBalance(){
 
 /////////////
 
-void displayStats(){
+void displayStats(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
     system("cls");
     cout << "Current Statistics\n";
     cout << "==================\n";
@@ -161,7 +198,7 @@ November 9, 2023
 //NOTE: Add code that checks the balance of the player. If their balance contains enough credits to play, let them play.
 //
 
-void mainGame(){
+void mainGame(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
 
     system("cls");
 
@@ -195,7 +232,19 @@ void mainGame(){
 	while (true) //Infintely looping statement which will repeat the program as long as the user keeps entering 'Y' to continue. Otherwise the program will terminate.
 	{
 
+        //Checking balance
+        if(balance < 1.0){
+            cout << fixed << showpoint << setprecision(2);
+            cout << "Uh oh! Your current balance of: $" << balance << " is not enough money to play.\n";
+            cout << "Please add more funds.\n" << endl;
+            system("pause");
+            return;
+        }
+
+
         while(true){ //Replace with a slightly safer and cleaner system in future
+
+        
 
             cin >> choice; //prompts user for their choice
 
@@ -209,7 +258,7 @@ void mainGame(){
         }
 
 
-		
+		system("cls"); //Clear Output
 		
 		srand((unsigned)time(NULL)); //Establishes a random number calculation (srand) utilizing the seed (time(Null)). The seed changes every second which randomizes the number outputted. 
 
@@ -247,7 +296,7 @@ void mainGame(){
 		}
 		else //if the if statement is false, it means the player guessed incorrectly and is punished
 		{
-			cout << "\nUnfortunately you did not guess the number, better luck next time!" << endl;
+			cout << "\nUnfortunately you did not guess the number, the correct number was: "<< randomNumber << endl;
 
 			cout << "$1 will be deducted from your account." << endl;
 
@@ -255,7 +304,7 @@ void mainGame(){
             totalGames++;
 			balance -= 1; //code for deducting $1 goes here
 
-			cout << "Would you like to play again?" << endl;
+			cout << endl << "Would you like to play again?" << endl;
 
             cout << fixed << showpoint << setprecision(2);
             cout << "Current Balance: $" << balance << endl;
@@ -275,12 +324,11 @@ void mainGame(){
 
 
 
+///
 
 
 
-// MAIN FUNCTION //
-int main(){
-
+void mainMenue(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
     //Main Menue Loop
 
     bool exit = false;
@@ -319,20 +367,20 @@ int main(){
           
         switch(input){
             case(1):
-                showBalance();
+                showBalance(balance);
                 break;
 
             case(2):
-                addBalance();
+                addBalance(balance);
                 break;
 
             case(3):
-                mainGame();
+                mainGame(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss);
                 break;
 
             case(4):
                 system("cls");
-                displayStats();
+                displayStats(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss);
                 break;
 
             case(5):
@@ -362,5 +410,4 @@ int main(){
 
         //cout << "Loop\n"; //debug
     }
-    return 0;
 }
