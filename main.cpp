@@ -210,9 +210,6 @@ void displayStats(double& balance, string& playerName, int& totalGames, int& tot
 }
 
 
-//Add one of these?: bool YNChoice(){}
-//Or even a 'safeCharInput()' function
-
 
 /*
 Code segment made by Blake DeFrancesco
@@ -221,7 +218,7 @@ November 9, 2023
 */
 
 //NOTE: Add code that checks the balance of the player. If their balance contains enough credits to play, let them play.
-//
+// Done
 
 void mainGame(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
 
@@ -382,8 +379,6 @@ void mainMenue(double& balance, string& playerName, int& totalGames, int& totalW
         int input;
         
         input = safeIntInput();
-
-        //cin >> input; //More reliable, but less secure
 
         //Add a function for safe int input through input validation? - Done
 
