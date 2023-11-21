@@ -14,6 +14,8 @@ using namespace std;
 
 //Global Constants
 const double MAX_ALLOWED = 20.0; //Maximum the balance is allowed to reach from user inputed money
+const double WIN_AMOUNT = 2.0; //Amount of money given to the user if they win
+const double LOSE_AMOUNT = 1.0; //Amount of money given to the user if they lose
 
 // Prototype Functions //
 void mainMenue(double&, string&, int&, int&, int&, double&, double&); //All
@@ -338,8 +340,8 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
             totalWins++;
             totalGames++;
-            totalMoneyWon += 2;
-			balance += 2; //code for giving player $2 goes here
+            totalMoneyWon += WIN_AMOUNT;
+			balance += WIN_AMOUNT; //code for giving player $2/win amount goes here
 
 
 			cout << "Would you like to play again?" << endl;
@@ -364,8 +366,8 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
             totalLosses++;
             totalGames++;
-            totalMoneyLoss += 1;
-			balance -= 1; //code for deducting $1 goes here
+            totalMoneyLoss += LOSE_AMOUNT;
+			balance -= LOSE_AMOUNT; //code for deducting $1/Lose amount goes here
 
 			cout << endl << "Would you like to play again?" << endl;
 
