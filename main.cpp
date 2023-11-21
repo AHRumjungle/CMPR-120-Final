@@ -19,6 +19,7 @@ const double MAX_ALLOWED = 20.0; //Maximum the balance is allowed to reach from 
 void mainMenue(double&, string&, int&, int&, int&, double&, double&); //All
 int safeIntInput(); //No pass through
 double safeDoubleInput(); //No pass through
+char safeCharInput(); //No pass through
 void showBalance(double&); //Pass balance through
 void addBalance(double&); //Pass balance through
 void displayStats(double&, string&, int&, int&, int&, double&, double&); //All
@@ -105,6 +106,15 @@ double safeDoubleInput(){
        Dinput = stod(sInput);
 
     return Dinput;
+}
+///////////////////
+
+char safeCharInput(){
+    string sInput;
+
+    cin >> sInput;
+
+    return sInput[0]; //return the fist charecter of a string, the rest is trashed
 }
 
 ///////////////////
@@ -230,7 +240,18 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
 	char choice; //Establishes the value for either continuing or not continuing as 'choice'
 
-	
+    while(true){
+
+        choice = safeCharInput(); //prompts user for their choicE
+        
+        if(choice == 'N'){
+            return; //Boot player to main menue
+        }   
+        else if(choice == 'Y'){
+            break; //Play the game
+        }
+
+    }
 
 	while (true) //Infintely looping statement which will repeat the program as long as the user keeps entering 'Y' to continue. Otherwise the program will terminate.
 	{
@@ -245,20 +266,7 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
         }
 
 
-        while(true){ //Replace with a slightly safer and cleaner system in future
 
-        
-
-            cin >> choice; //prompts user for their choice
-
-            if(choice == 'N'){
-            return; //Boot player to main menue
-            }   
-            else if(choice == 'Y'){
-                break; //Play the game
-            }
-
-        }
 
 
 		system("cls"); //Clear Output
@@ -290,7 +298,7 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
 			cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
 
-			cin >> choice; //Replace with a slightly safer and cleaner system in future
+			choice = safeCharInput();
 
 			if (choice == 'N') 
 			{
@@ -314,7 +322,7 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
 			cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
 
-			cin >> choice; //Replace with a slightly safer and cleaner system in future
+			choice = safeCharInput();
 
 			if (choice == 'N') 
 			{
