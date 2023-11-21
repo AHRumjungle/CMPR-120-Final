@@ -23,6 +23,7 @@ char safeCharInput(); //No pass through
 void showBalance(double&); //Pass balance through
 void addBalance(double&); //Pass balance through
 void displayStats(double&, string&, int&, int&, int&, double&, double&); //All
+void saveStats(double&, string&, int&, int&, int&, double&, double&); //All
 void mainGame(double&, string&, int&, int&, int&, double&, double&); //All
 void getPlayerName(string&); //pass name through
 
@@ -209,7 +210,45 @@ void displayStats(double& balance, string& playerName, int& totalGames, int& tot
     system("pause");
 }
 
+////////////////////
 
+/*
+Code segment made by Jan
+CMPR 120
+November 21, 2023
+*/
+
+
+
+void saveStats(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
+    
+    string fileName = "Stats.txt";
+
+    ofstream outFile;
+    outFile.open(fileName);
+    
+
+    outFile << __DATE__ << " " << __TIME__ << endl;
+    outFile << "Player Name: " << playerName << endl;
+    outFile << "Available Credits: " << balance << endl;
+    outFile << "Games Played: " << totalGames << endl;
+    outFile << "Correct Guesses: " << totalWins << endl;
+    outFile << "Wrong Guesses: " << totalLosses << endl;
+    outFile << fixed << showpoint << setprecision(2); //Format
+    outFile << "Money you won: $" << totalMoneyWon << endl;
+    outFile << "Money you lost: $" << totalMoneyLoss << endl << endl << endl;
+    
+    outFile.close();
+
+    system("cls");
+    cout << "Statistics saved to: " << fileName << endl;
+    system("pause");
+    
+
+    
+}
+
+///////////////////
 
 /*
 Code segment made by Blake DeFrancesco
@@ -406,9 +445,7 @@ void mainMenue(double& balance, string& playerName, int& totalGames, int& totalW
                 break;
 
             case(5):
-                system("cls");
-                cout << "You entered 5: Save My Statistics\n";
-                system("pause");
+                saveStats(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss);
                 break;
 
             case(6):
@@ -444,7 +481,7 @@ void getPlayerName(string& playerName){
         cout << "Please enter your name to continue:\n";
 
         cin.ignore();
-        getline(cin, playerName); //fix
+        getline(cin, playerName); //fix issue where first char is delete when entring the name for first time
 
         cout << endl;
         cout << playerName << endl;
