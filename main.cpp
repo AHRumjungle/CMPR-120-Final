@@ -480,8 +480,10 @@ void getPlayerName(string& playerName){
         cout << "Welcome to ABJ softwear!\n";
         cout << "Please enter your name to continue:\n";
 
-        cin.ignore();
-        getline(cin, playerName); //fix issue where first char is delete when entring the name for first time
+        
+        
+        getline(cin, playerName);
+        
 
         cout << endl;
         cout << playerName << endl;
@@ -492,5 +494,8 @@ void getPlayerName(string& playerName){
         if(choice == 'Y'){
             return;
         }
+
+        cin.ignore(); //clear cin buffer
+
     }
 }
