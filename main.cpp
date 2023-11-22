@@ -264,6 +264,10 @@ November 9, 2023
 
 void mainGame(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
 
+
+//Make the game 'Not play itself' when user enters y or n inncorrectly
+
+
     system("cls");
 
     //Checking balance
@@ -295,7 +299,7 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
     //Inital Choice
     while(true){ 
 
-        choice = safeCharInput(); //prompts user for their choicE
+        choice = safeCharInput(); //prompts user for their choice
 
         if(choice == 'N'){
             return; //Boot player to main menu
