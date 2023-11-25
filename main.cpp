@@ -13,6 +13,13 @@ using namespace std;
 
 //////////////////////////////
 
+// ## TODO ##
+// - Make the game 'Not play itself' when user enters y or n inncorrectly
+// - Add integer check for guesing game
+// - For saving statistics, if the file with the same name exists, ask user if they want to overwrite
+
+//////////////////////////////
+
 //Global Constants
 const double MAX_ALLOWED = 20.0; //Maximum the balance is allowed to reach from user inputed money
 const double WIN_AMOUNT = 2.0; //Amount of money given to the user if they win
@@ -54,7 +61,7 @@ int main(){
     //Short pass through
     //double&, string&, int&, int&, int&, double&, double&
 
-    //If there is no player name
+    //If there is no player name (there will always be no name)
     if(playerName == ""){
         getPlayerName(playerName);
     }
@@ -108,7 +115,7 @@ double safeDoubleInput(){
     catch(std::invalid_argument){
         cout << endl << "=ERROR=\n" << "Invalid input\n" << endl << endl;
         system("pause");
-        return -1;
+        return -1.0;
     }
 
        Dinput = stod(sInput);
@@ -230,7 +237,6 @@ void saveStats(double& balance, string& playerName, int& totalGames, int& totalW
     ofstream outFile;
     outFile.open(fileName);
     
-
     outFile << __DATE__ << " " << __TIME__ << endl;
     outFile << "Player Name: " << playerName << endl;
     outFile << "Available Credits: " << balance << endl;
@@ -264,10 +270,6 @@ November 9, 2023
 
 void mainGame(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
 
-
-//Make the game 'Not play itself' when user enters y or n inncorrectly
-
-
     system("cls");
 
     //Checking balance
@@ -280,15 +282,14 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
         return;
     }
 
-   
-
     cout << "Hello! I'm thinking of a number between 1 and 10." << endl; //Starting prompts which explain the game and how it works
 
-	cout << "If you guess correctly i'll reward you with $2!" << endl; 
-
-	cout << "However, if you lose I will have to take $1 out of your account. Would you like to play?" << endl;
-
     cout << fixed << showpoint << setprecision(2);
+	cout << "If you guess correctly i'll reward you with $"<< WIN_AMOUNT << "!" << endl; 
+
+	cout << "However, if you lose I will have to take $" << LOSE_AMOUNT <<" out of your account. Would you like to play?" << endl;
+
+    
     cout << "Current Balance: $" << balance << endl;
 
 	cout << "(Type 'Y' for yes or 'N' for no)\n" << endl;
@@ -324,20 +325,63 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
             return;
         }
 
-
-		system("cls"); //Clear Output
+	
 		
 		srand((unsigned)time(NULL)); //Establishes a random number calculation (srand) utilizing the seed (time(Null)). The seed changes every second which randomizes the number outputted. 
 
 		int randomNumber = 1 + (rand() % 10); //Establishes the random number as an integer within the range of 1 to 10 by performing the modulus of our random number function (rand()) and adding 1 to the result
 
-		cout << "\nAlright! Guess what number i'm thinking of!" << endl; //prompts user to input their guess
+        int guess; //Establishes user input under the integer 'guess'
 
-		cout << "Remember, it's between 1 and 10!\n" << endl;
+        //Valid input loop
+        while(true){
 
-		int guess; //Establishes user input under the integer 'guess'
+            system("cls"); //Clear Output
 
-		guess = safeIntInput(); //prompts user to input their guess 
+		    cout << "\nAlright! Guess what number i'm thinking of!" << endl; //prompts user to input their guess
+
+		    cout << "Remember, it's between 1 and 10!\n";
+            cout << "Type 0 to quit now\n" << endl;
+
+            double wideGuess; 
+            //will allow user to enter a non-whole number
+            //Insted of automaticly round down, 
+            //will tell the user to enter an whole number and not take their money
+
+            wideGuess = safeDoubleInput();//prompts user to input their guess 
+
+            //Whole number check
+            //If fail, restart loop
+            if(!(floor(wideGuess) == wideGuess)){
+                cout << endl << "Please enter a whole integer please.\n" << endl;
+                system("pause");
+                continue;
+            }
+
+            guess = static_cast<int>(wideGuess);
+
+            if(guess > 0 && guess < 11){ 
+                //A valid guess will continue
+                break;
+            }
+            else if(guess == 0){
+                //Typing 0 will boot the player to the menu and will not deduct any money
+                return;
+            }
+            else if(guess != -1){
+                //-1 is the error return for safeIntInput()
+                //This will prevent a second redundent error message from poping up
+                
+                //Display error message
+                cout << endl;
+                cout << "Please enter a valid input\n" << endl;
+                system("pause");
+            }
+            
+
+
+        }
+		
 
 		if (guess == randomNumber) //if the if statement is true, it means the player guessed right and is rewarded
 		{
@@ -396,7 +440,6 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
 //Main menu Loop
 void mainmenu(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
-
 
     bool exit = false;
 
@@ -474,7 +517,6 @@ void mainmenu(double& balance, string& playerName, int& totalGames, int& totalWi
         //cout << "Loop\n"; //debug
     }
 }
-
 
 /////////////////
 
