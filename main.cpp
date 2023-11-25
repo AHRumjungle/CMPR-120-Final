@@ -14,8 +14,6 @@ using namespace std;
 //////////////////////////////
 
 // ## TODO ##
-// - Make the game 'Not play itself' when user enters y or n inncorrectly
-// - Add integer check for guesing game
 // - For saving statistics, if the file with the same name exists, ask user if they want to overwrite
 
 //////////////////////////////
@@ -233,6 +231,36 @@ void saveStats(double& balance, string& playerName, int& totalGames, int& totalW
 
     //File name will need to be the user's name
     string fileName = userFirstName + ".txt"; 
+
+
+
+    //Check for existing file
+    fstream existingFile;
+
+    existingFile.open(fileName);
+
+    //If opening file with 'filename' works due to file exsisting, display message
+    if(!existingFile.fail()){
+        while(true){
+            system("cls");
+            cout << "==!WARNING!==\n";
+            cout << "Stats under this username already exists!\n";
+            cout << "Do you want to overwrite? Y, N\n";
+
+            char choice = safeCharInput();
+
+            if(choice == 'Y'){
+                break;//Continue
+            }
+            else if(choice == 'N'){
+                return; //boot player to menu
+            }
+        }
+    }
+    existingFile.close();
+
+
+
 
     ofstream outFile;
     outFile.open(fileName);
@@ -454,7 +482,7 @@ void mainmenu(double& balance, string& playerName, int& totalGames, int& totalWi
         cout << "Please select one of the following:\n";
         cout << endl;
         cout << "\t1: Display my available balance\n";
-        cout << "\t2: Add money to my accout\n";
+        cout << "\t2: Add money to my account\n";
         cout << "\t3: Play the Guessing Game\n";
         cout << "\t4: Display My Statistics\n";
         cout << "\t5: Save My Statistics\n";
