@@ -16,7 +16,7 @@ using namespace std;
 // ## TODO ##
 //
 // # Thoughts #
-// - Ask user if they want to load stats if username matches a save stats file?
+// - Ask user if they want to load stats if username matches a save stats file? - UNDER BRANCH 'read-stats'
 
 //////////////////////////////
 
@@ -173,10 +173,10 @@ void addBalance(double& balance){
     }
 
     //check if balance will exceed
-   if(balance + balanceToAdd > 20.00){
+   if(balance + balanceToAdd > MAX_ALLOWED){
 
         cout << "==ERROR==\n";
-        cout << "Added balance will exceede the allowed maximum added by user of $20\n";
+        cout << "Added balance will exceede the allowed maximum added by user of $" << MAX_ALLOWED << endl;
         cout << endl;
         system("pause");
         return;
@@ -186,10 +186,10 @@ void addBalance(double& balance){
 
     balance += balanceToAdd;
     cout << endl;
-    cout << "$" << balanceToAdd << " dollars added\n";
+    cout << "$" << balanceToAdd << " added\n";
 
     cout << fixed << showpoint << setprecision(2); //formating
-    cout << "Current total: $" << balance << endl;
+    cout << "Current Total: $" << balance << endl;
 
     cout << endl;
     system("pause");
@@ -221,7 +221,7 @@ void displayStats(double& balance, string& playerName, int& totalGames, int& tot
 
 
 /*
-Code segment made by Jan
+Code function made by Jan
 CMPR 120
 November 21, 2023
 */
@@ -245,7 +245,7 @@ void saveStats(double& balance, string& playerName, int& totalGames, int& totalW
     if(!existingFile.fail()){
         while(true){
             system("cls");
-            cout << "==!WARNING!==\n";
+            cout << "!==WARNING==!\n";
             cout << "Stats under this username already exists!\n";
             cout << "Do you want to overwrite? Y, N\n";
 
@@ -290,7 +290,7 @@ void saveStats(double& balance, string& playerName, int& totalGames, int& totalW
 ///////////////////
 
 /*
-Code segment made by Blake DeFrancesco
+Code function made by Blake DeFrancesco
 CMPR 120
 November 9, 2023
 */
@@ -304,9 +304,10 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
     //Checking balance
 
-    if(balance < 1.0){
+    if(balance < LOSE_AMOUNT){
         cout << fixed << showpoint << setprecision(2);
         cout << "Uh oh! Your current balance of: $" << balance << " is not enough money to play.\n";
+        cout << "You need atlest $" << LOSE_AMOUNT << " to play.\n";
         cout << "Please add more funds.\n" << endl;
         system("pause");
         return;
@@ -347,7 +348,7 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 	{
 
         //Checking balance
-        if(balance < 1.0){
+        if(balance < LOSE_AMOUNT){
             cout << fixed << showpoint << setprecision(2);
             cout << "Uh oh! Your current balance of: $" << balance << " is not enough money to play.\n";
             cout << "Please add more funds.\n" << endl;
@@ -368,7 +369,7 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
 
             system("cls"); //Clear Output
 
-		    cout << "\nAlright! Guess what number i'm thinking of!" << endl; //prompts user to input their guess
+		    cout << "Alright! Guess what number i'm thinking of!" << endl; //prompts user to input their guess
 
 		    cout << "Remember, it's between 1 and 10!\n";
             cout << "Type 0 to quit now\n" << endl;
@@ -399,7 +400,7 @@ void mainGame(double& balance, string& playerName, int& totalGames, int& totalWi
                 return;
             }
             else if(guess != -1){
-                //-1 is the error return for safeIntInput()
+                //-1 is the error return for safeDoubleInput()
                 //This will prevent a second redundent error message from poping up
                 
                 //Display error message
@@ -502,7 +503,6 @@ void mainmenu(double& balance, string& playerName, int& totalGames, int& totalWi
 
         cout << endl; //spacing
 
-          
         switch(input){
             case(1):
                 showBalance(balance);
