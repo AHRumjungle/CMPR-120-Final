@@ -14,7 +14,9 @@ using namespace std;
 //////////////////////////////
 
 // ## TODO ##
-// - For saving statistics, if the file with the same name exists, ask user if they want to overwrite
+//
+// # Thoughts #
+// - Ask user if they want to load stats if username matches a save stats file?
 
 //////////////////////////////
 
@@ -201,8 +203,8 @@ void displayStats(double& balance, string& playerName, int& totalGames, int& tot
     system("cls");
     cout << "Current Statistics\n";
     cout << "==================\n";
+    cout << "Date & Time: " << __DATE__ << " " << __TIME__ << endl;
     cout << "Player Name: " << playerName << endl;
-    cout << "Date Time: " << __DATE__ << " " << __TIME__ << endl;
     cout << "Total Games: " << totalGames << endl;
     cout << "Total Wins: " << totalWins << endl;
     cout << "Total Losses: " << totalLosses << endl;
@@ -265,15 +267,15 @@ void saveStats(double& balance, string& playerName, int& totalGames, int& totalW
     ofstream outFile;
     outFile.open(fileName);
     
-    outFile << __DATE__ << " " << __TIME__ << endl;
+    outFile << "Date & Time: " << __DATE__ << " " << __TIME__ << endl;
     outFile << "Player Name: " << playerName << endl;
-    outFile << "Available Credits: " << balance << endl;
-    outFile << "Games Played: " << totalGames << endl;
-    outFile << "Correct Guesses: " << totalWins << endl;
-    outFile << "Wrong Guesses: " << totalLosses << endl;
-    outFile << fixed << showpoint << setprecision(2); //Format
-    outFile << "Money you won: $" << totalMoneyWon << endl;
-    outFile << "Money you lost: $" << totalMoneyLoss << endl << endl << endl;
+    outFile << "Total Games: " << totalGames << endl;
+    outFile << "Total Wins: " << totalWins << endl;
+    outFile << "Total Losses: " << totalLosses << endl;
+    
+    outFile << fixed << showpoint << setprecision(2); //Formating
+    outFile << "Total Money Won: $" << totalMoneyWon << endl;
+    outFile << "Total Money Lost: $" << totalMoneyLoss;
     
     outFile.close();
 
