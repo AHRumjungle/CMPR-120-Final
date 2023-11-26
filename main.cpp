@@ -628,7 +628,7 @@ bool dosePlayerFileExist(string& playerName){
 void readStats(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
 
 
-//WILL CRASH AT RUNTIME IF FILE STRUCTURE CHANGES!!!!
+//Will still crash if file structer is wak
 
 
     string userFirstName = playerName.substr(0, playerName.find(" "));
@@ -676,7 +676,10 @@ void readStats(double& balance, string& playerName, int& totalGames, int& totalW
 
     for(int i=1; i<=7; i++){
     
-
+        if(inFile.eof()){
+            cout << "An error was found at line " << i;
+            return;
+        }
 
 
 
@@ -710,10 +713,10 @@ void readStats(double& balance, string& playerName, int& totalGames, int& totalW
         }
 
         if(errors > 0){
-        cout << "An error occured when trying to load this file at line " << i << endl;
-        cout << "Defaulting value to 0\n";
-        system("pause");
-        errors--;
+            cout << "An error occured when trying to load this file at line " << i << endl;
+            cout << "Defaulting value to 0\n";
+            system("pause");
+            errors--;
         }
 
 
