@@ -38,7 +38,8 @@ void mainGame(double&, string&, int&, int&, int&, double&, double&); //All
 void getPlayerName(string&); //Pass name through
 void readStats(double&, string&, int&, int&, int&, double&, double&); //All
 bool dosePlayerFileExist(string&); //Pass name through
-int safeSTOI(string, int&); //Pass through error int
+int safeSTOI(string, int&); //Pass through errors int
+double safeSTOD(string, int&); //Pass through error int
 
 /////////////////////////////
 
@@ -698,18 +699,19 @@ void readStats(double& balance, string& playerName, int& totalGames, int& totalW
                 break;
 
             case(6):
-                totalMoneyWon = stod(currentLine.substr(18, currentLine.find(" ")));
+                totalMoneyWon = safeSTOD(currentLine.substr(18, currentLine.find(" ")), errors);
                 //cout << totalMoneyWon << endl; //debug
                 break;
 
             case(7):
-                totalMoneyLoss = stod(currentLine.substr(19, currentLine.find(" ")));
+                totalMoneyLoss = safeSTOD(currentLine.substr(19, currentLine.find(" ")), errors);
                 //cout << totalMoneyLoss << endl; //debug
                 break;
         }
 
         if(errors > 0){
         cout << "An error occured when trying to load this file at line " << i << endl;
+        cout << "Defaulting value to 0\n";
         system("pause");
         errors--;
         }
@@ -734,5 +736,21 @@ int safeSTOI(string input, int& errors){
     }
 
     return stoi(input);
+
+}
+
+///////////////
+
+double safeSTOD(string input, int& errors){
+
+    try{
+        return stod(input);
+    }
+    catch(std::invalid_argument){
+        errors++;
+        return 0.0;
+    }
+
+    return stod(input);
 
 }
