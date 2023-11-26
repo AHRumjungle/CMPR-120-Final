@@ -38,6 +38,7 @@ void mainGame(double&, string&, int&, int&, int&, double&, double&); //All
 void getPlayerName(string&); //Pass name through
 void readStats(double&, string&, int&, int&, int&, double&, double&); //All
 bool dosePlayerFileExist(string&); //Pass name through
+int safeSTOI(string, int&); //Pass through error int
 
 /////////////////////////////
 
@@ -670,23 +671,29 @@ void readStats(double& balance, string& playerName, int& totalGames, int& totalW
 
     string currentLine;
 
+    int errors = 0;
+
     for(int i=1; i<=7; i++){
     
+
+
+
+
         getline(inFile, currentLine);
         //cout << i << " Current Line: " << currentLine << endl; //debug
         switch(i){
             case(3):
-                totalGames = stoi(currentLine.substr(13, currentLine.find(" ")));
+                totalGames = safeSTOI(currentLine.substr(13, currentLine.find(" ")), errors);
                 //cout << totalGames << endl; //Debug
                 break;
 
             case(4):
-                totalWins = stoi(currentLine.substr(12, currentLine.find(" ")));
+                totalWins = safeSTOI(currentLine.substr(12, currentLine.find(" ")), errors);
                 //cout << totalWins << endl; //Debug
                 break;
 
             case(5):
-                totalLosses = stoi(currentLine.substr(14, currentLine.find(" ")));
+                totalLosses = safeSTOI(currentLine.substr(14, currentLine.find(" ")), errors);
                 //cout << totalLosses << endl; //Debug
                 break;
 
@@ -701,8 +708,31 @@ void readStats(double& balance, string& playerName, int& totalGames, int& totalW
                 break;
         }
 
+        if(errors > 0){
+        cout << "An error occured when trying to load this file at line " << i << endl;
+        system("pause");
+        errors--;
+        }
+
+
     }
 
         //system("pause"); //Debug
+
+}
+
+///////////////
+
+int safeSTOI(string input, int& errors){
+
+    try{
+        return stoi(input);
+    }
+    catch(std::invalid_argument){
+        errors++;
+        return 0;
+    }
+
+    return stoi(input);
 
 }
