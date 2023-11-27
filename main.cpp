@@ -36,10 +36,11 @@ void displayStats(double&, string&, int&, int&, int&, double&, double&); //All
 void saveStats(double&, string&, int&, int&, int&, double&, double&); //All
 void mainGame(double&, string&, int&, int&, int&, double&, double&); //All
 void getPlayerName(string&); //Pass name through
-void readStats(double&, string&, int&, int&, int&, double&, double&); //All
+bool readStats(double&, string&, int&, int&, int&, double&, double&); //All
 bool dosePlayerFileExist(string&); //Pass name through
 int safeSTOI(string, int&); //Pass through errors int
 double safeSTOD(string, int&); //Pass through error int
+string safeCurrentLineSub(int, string&); //Pass through currentLine
 
 /////////////////////////////
 
@@ -83,10 +84,22 @@ int main(){
             char choice = safeCharInput();
 
             if(choice == 'Y'){
-                readStats(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss);
-                cout << "Stats loaded!\n";
-                system("pause");
-                break;
+                if(readStats(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss)){
+                    cout << "Stats loaded!\n";
+                    system("pause");
+                    break;
+                } else{
+                    cout << "Error loading stats\n";
+                    system("pause");
+                    balance = 0.0;
+                    totalGames = 0;
+                    totalWins = 0;
+                    totalLosses = 0;
+                    totalMoneyWon = 0.0;
+                    totalMoneyLoss = 0.0;
+                    break;
+                }
+                
 
             }else if(choice == 'N'){
                 break;
@@ -625,7 +638,7 @@ bool dosePlayerFileExist(string& playerName){
 
 ///////////////
 
-void readStats(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
+bool readStats(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
 
 
 //Will still crash if file structer is wak
@@ -647,7 +660,7 @@ void readStats(double& balance, string& playerName, int& totalGames, int& totalW
         cout << "File not found\n";
         system("pause");
         existingFile.close();
-        return;
+        return false;
     }else{
         existingFile.close();
     }
@@ -677,8 +690,8 @@ void readStats(double& balance, string& playerName, int& totalGames, int& totalW
     for(int i=1; i<=7; i++){
     
         if(inFile.eof()){
-            cout << "An error was found at line " << i;
-            return;
+            cout << "An error was found at line " << i << endl;
+            return false;
         }
 
 
@@ -687,42 +700,43 @@ void readStats(double& balance, string& playerName, int& totalGames, int& totalW
         //cout << i << " Current Line: " << currentLine << endl; //debug
         switch(i){
             case(3):
-                totalGames = safeSTOI(currentLine.substr(13, currentLine.find(" ")), errors);
+                totalGames = safeSTOI(safeCurrentLineSub(13, currentLine), errors);
                 //cout << totalGames << endl; //Debug
                 break;
 
             case(4):
-                totalWins = safeSTOI(currentLine.substr(12, currentLine.find(" ")), errors);
+                totalWins = safeSTOI(safeCurrentLineSub(12, currentLine), errors);
                 //cout << totalWins << endl; //Debug
                 break;
 
             case(5):
-                totalLosses = safeSTOI(currentLine.substr(14, currentLine.find(" ")), errors);
+                totalLosses = safeSTOI(safeCurrentLineSub(14, currentLine), errors);
                 //cout << totalLosses << endl; //Debug
                 break;
 
             case(6):
-                totalMoneyWon = safeSTOD(currentLine.substr(18, currentLine.find(" ")), errors);
+                totalMoneyWon = safeSTOD(safeCurrentLineSub(18, currentLine), errors);
                 //cout << totalMoneyWon << endl; //debug
                 break;
 
             case(7):
-                totalMoneyLoss = safeSTOD(currentLine.substr(19, currentLine.find(" ")), errors);
+                totalMoneyLoss = safeSTOD(safeCurrentLineSub(19, currentLine), errors);
                 //cout << totalMoneyLoss << endl; //debug
                 break;
         }
 
         if(errors > 0){
             cout << "An error occured when trying to load this file at line " << i << endl;
-            cout << "Defaulting value to 0\n";
             system("pause");
-            errors--;
+            return false;
         }
 
 
     }
 
         //system("pause"); //Debug
+    
+    return true;
 
 }
 
@@ -755,5 +769,24 @@ double safeSTOD(string input, int& errors){
     }
 
     return stod(input);
+
+}
+
+
+string safeCurrentLineSub(int endLine, string& currentLine){
+
+
+    try{
+       return currentLine.substr(endLine, currentLine.find(" "));
+    }
+    catch(std::out_of_range){
+        cout << "Error\n";
+        system("pause");
+        return "";
+    }
+
+
+
+    return currentLine.substr(endLine, currentLine.find(" "));
 
 }
