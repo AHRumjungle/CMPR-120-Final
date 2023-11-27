@@ -88,7 +88,7 @@ int main(){
                     cout << "Stats loaded!\n";
                     system("pause");
                     break;
-                } else{
+                }else{
                     cout << "Error loading stats\n";
                     system("pause");
                     balance = 0.0;
@@ -674,7 +674,6 @@ bool readStats(double& balance, string& playerName, int& totalGames, int& totalW
     3 "Total Games: " << totalGames << endl;
     4 "Total Wins: " << totalWins << endl;
     5 "Total Losses: " << totalLosses << endl;
-      fixed << showpoint << setprecision(2); //Formating
     6 "Total Money Won: $" << totalMoneyWon << endl;
     7 "Total Money Lost: $" << totalMoneyLoss;
     */
@@ -772,6 +771,7 @@ double safeSTOD(string input, int& errors){
 
 }
 
+/////////////////////////////
 
 string safeCurrentLineSub(int endLine, string& currentLine){
 
@@ -780,7 +780,7 @@ string safeCurrentLineSub(int endLine, string& currentLine){
        return currentLine.substr(endLine, currentLine.find(" "));
     }
     catch(std::out_of_range){
-        cout << "Error\n";
+        cout << "Error reading structure of file\n";
         system("pause");
         return "";
     }
