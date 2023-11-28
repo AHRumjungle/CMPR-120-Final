@@ -16,8 +16,7 @@ using namespace std;
 // ## TODO ##
 //
 // # Thoughts #
-// - Ask user if they want to load stats if username matches a save stats file?
-
+// 
 //////////////////////////////
 
 //Global Constants
@@ -81,11 +80,13 @@ int main(){
             char choice = safeCharInput();
 
             if(choice == 'Y'){
+
                 if(readStats(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss)){
                     cout << "Stats loaded!\n";
                     system("pause");
                     break;
-                }else{
+                }
+                else{
                     cout << "Error loading stats\n";
                     system("pause");
                     balance = 0.0;
@@ -98,7 +99,8 @@ int main(){
                 }
                 
 
-            }else if(choice == 'N'){
+            }
+            else if(choice == 'N'){
                 break;
             }
         }
@@ -635,15 +637,12 @@ bool dosePlayerFileExist(string& playerName){
 
 ///////////////
 
+//Will try to read the stats file named after the player first name/word
+//return true if successful, false if fail
 bool readStats(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
-
-
-//Will still crash if file structer is wak
-
 
     string userFirstName = playerName.substr(0, playerName.find(" "));
     string fileName = userFirstName + ".txt"; 
-
 
 
     //Check if file exists
@@ -690,34 +689,27 @@ bool readStats(double& balance, string& playerName, int& totalGames, int& totalW
             return false;
         }
 
-
-
         getline(inFile, currentLine);
-        //cout << i << " Current Line: " << currentLine << endl; //debug
+
         switch(i){
             case(3):
                 totalGames = extractInt(13, currentLine, errors);
-                //cout << totalGames << endl; //Debug
                 break;
 
             case(4):
                 totalWins = extractInt(12, currentLine, errors);
-                //cout << totalWins << endl; //Debug
                 break;
 
             case(5):
                 totalLosses = extractInt(14, currentLine, errors);
-                //cout << totalLosses << endl; //Debug
                 break;
 
             case(6):
                 totalMoneyWon = extractDouble(18, currentLine, errors);
-                //cout << totalMoneyWon << endl; //debug
                 break;
 
             case(7):
                 totalMoneyLoss = extractDouble(19, currentLine, errors);
-                //cout << totalMoneyLoss << endl; //debug
                 break;
         }
 
@@ -730,8 +722,6 @@ bool readStats(double& balance, string& playerName, int& totalGames, int& totalW
 
     }
 
-        //system("pause"); //Debug
-    
     return true;
 
 }
