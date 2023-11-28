@@ -38,10 +38,8 @@ void mainGame(double&, string&, int&, int&, int&, double&, double&); //All
 void getPlayerName(string&); //Pass name through
 bool readStats(double&, string&, int&, int&, int&, double&, double&); //All
 bool dosePlayerFileExist(string&); //Pass name through
-int safeSTOI(string, int&); //Pass through errors int
-double safeSTOD(string, int&); //Pass through error int
-string safeCurrentLineSub(int, string&); //Pass through currentLine
-
+int extractInt(int, string&, int&); //Pass through current line and errors
+double extractDouble(int, string&, int&); //Pass through current line and errors
 /////////////////////////////
 
 
@@ -698,27 +696,27 @@ bool readStats(double& balance, string& playerName, int& totalGames, int& totalW
         //cout << i << " Current Line: " << currentLine << endl; //debug
         switch(i){
             case(3):
-                totalGames = safeSTOI(safeCurrentLineSub(13, currentLine), errors);
+                totalGames = extractInt(13, currentLine, errors);
                 //cout << totalGames << endl; //Debug
                 break;
 
             case(4):
-                totalWins = safeSTOI(safeCurrentLineSub(12, currentLine), errors);
+                totalWins = extractInt(12, currentLine, errors);
                 //cout << totalWins << endl; //Debug
                 break;
 
             case(5):
-                totalLosses = safeSTOI(safeCurrentLineSub(14, currentLine), errors);
+                totalLosses = extractInt(14, currentLine, errors);
                 //cout << totalLosses << endl; //Debug
                 break;
 
             case(6):
-                totalMoneyWon = safeSTOD(safeCurrentLineSub(18, currentLine), errors);
+                totalMoneyWon = extractDouble(18, currentLine, errors);
                 //cout << totalMoneyWon << endl; //debug
                 break;
 
             case(7):
-                totalMoneyLoss = safeSTOD(safeCurrentLineSub(19, currentLine), errors);
+                totalMoneyLoss = extractDouble(19, currentLine, errors);
                 //cout << totalMoneyLoss << endl; //debug
                 break;
         }
@@ -787,5 +785,67 @@ string safeCurrentLineSub(int endLine, string& currentLine){
 
 
     return currentLine.substr(endLine, currentLine.find(" "));
+
+}
+
+
+///////////
+int extractInt(int endLine, string& currentLine, int& errors){
+
+    string workingString;
+
+
+     try{
+       workingString = currentLine.substr(endLine, currentLine.find(" "));
+    }
+    catch(std::out_of_range){
+        cout << "Error reading structure of file\n";
+        system("pause");
+        errors++;
+        return 0;
+    }
+
+    workingString = currentLine.substr(endLine, currentLine.find(" "));
+
+    try{
+        return stoi(workingString);
+    }
+    catch(std::invalid_argument){
+        errors++;
+        return 0;
+    }
+
+    return stoi(workingString);
+
+}
+
+/////////////////
+
+double extractDouble(int endLine, string& currentLine, int& errors){
+
+    string workingString;
+
+
+     try{
+       workingString = currentLine.substr(endLine, currentLine.find(" "));
+    }
+    catch(std::out_of_range){
+        cout << "Error reading structure of file\n";
+        system("pause");
+        errors++;
+        return 0.0;
+    }
+
+    workingString = currentLine.substr(endLine, currentLine.find(" "));
+
+    try{
+        return stod(workingString);
+    }
+    catch(std::invalid_argument){
+        errors++;
+        return 0.0;
+    }
+
+    return stod(workingString);
 
 }
