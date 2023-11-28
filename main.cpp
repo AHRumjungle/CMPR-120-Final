@@ -32,7 +32,7 @@ void mainmenu(double&, string&, int&, int&, int&, double&, double&); //All
 int safeIntInput(); //No pass through
 double safeDoubleInput(); //No pass through
 char safeCharInput(); //No pass through
-void showBalance(double&); //Pass balance through
+void showBalance(double); //No Pass through
 void addBalance(double&); //Pass balance through
 void displayStats(double&, string&, int&, int&, int&, double&, double&); //All
 void saveStats(double&, string&, int&, int&, int&, double&, double&); //All
@@ -136,7 +136,7 @@ char safeCharInput(){
 
 ///////////////////
 
-void showBalance(double& balance){
+void showBalance(double balance){
 
 
    system("cls");
