@@ -686,6 +686,8 @@ bool readStats(double& balance, string& playerName, int& totalGames, int& totalW
     
         if(inFile.eof()){
             cout << "An error was found at line " << i << endl;
+
+            inFile.close();
             return false;
         }
 
@@ -716,12 +718,15 @@ bool readStats(double& balance, string& playerName, int& totalGames, int& totalW
         if(errors > 0){
             cout << "An error occured when trying to load this file at line " << i << endl;
             system("pause");
+
+            inFile.close();
             return false;
         }
 
 
     }
 
+    inFile.close();
     return true;
 
 }
