@@ -24,9 +24,10 @@ using namespace std;
 //Global Constants
 const double MAX_ALLOWED = 20.0; //Maximum the balance is allowed to reach from user inputed money
 const double WIN_AMOUNT = 2.0; //Amount of money given to the user if they win
-const double LOSE_AMOUNT = 1.0; //Amount of money given to the user if they lose
+const double LOSE_AMOUNT = 1.0; //Amount of money taken to the user if they lose
 
 // Prototype Functions //
+
 void mainmenu(double&, string&, int&, int&, int&, double&, double&); //All
 int safeIntInput(); //No pass through
 double safeDoubleInput(); //No pass through
