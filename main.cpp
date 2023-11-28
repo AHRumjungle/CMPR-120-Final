@@ -736,60 +736,8 @@ bool readStats(double& balance, string& playerName, int& totalGames, int& totalW
 
 }
 
-///////////////
-
-int safeSTOI(string input, int& errors){
-
-    try{
-        return stoi(input);
-    }
-    catch(std::invalid_argument){
-        errors++;
-        return 0;
-    }
-
-    return stoi(input);
-
-}
-
-///////////////
-
-double safeSTOD(string input, int& errors){
-
-    try{
-        return stod(input);
-    }
-    catch(std::invalid_argument){
-        errors++;
-        return 0.0;
-    }
-
-    return stod(input);
-
-}
-
-/////////////////////////////
-
-string safeCurrentLineSub(int endLine, string& currentLine){
-
-
-    try{
-       return currentLine.substr(endLine, currentLine.find(" "));
-    }
-    catch(std::out_of_range){
-        cout << "Error reading structure of file\n";
-        system("pause");
-        return "";
-    }
-
-
-
-    return currentLine.substr(endLine, currentLine.find(" "));
-
-}
-
-
 ///////////
+
 int extractInt(int endLine, string& currentLine, int& errors){
 
     string workingString;
