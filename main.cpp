@@ -66,10 +66,9 @@ int main(){
     //Short pass through
     //double&, string&, int&, int&, int&, double&, double&
 
-    //If there is no player name (there will always be no name)
-    if(playerName == ""){
-        getPlayerName(playerName);
-    }
+
+    getPlayerName(playerName);
+
 
 
 
