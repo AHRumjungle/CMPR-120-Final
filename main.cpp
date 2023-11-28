@@ -743,12 +743,10 @@ int extractInt(int endLine, string& currentLine, int& errors){
     string workingString;
 
 
-     try{
+    try{
        workingString = currentLine.substr(endLine, currentLine.find(" "));
     }
     catch(std::out_of_range){
-        cout << "Error reading structure of file\n";
-        system("pause");
         errors++;
         return 0;
     }
@@ -774,12 +772,10 @@ double extractDouble(int endLine, string& currentLine, int& errors){
     string workingString;
 
 
-     try{
+    try{
        workingString = currentLine.substr(endLine, currentLine.find(" "));
     }
     catch(std::out_of_range){
-        cout << "Error reading structure of file\n";
-        system("pause");
         errors++;
         return 0.0;
     }
