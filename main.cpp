@@ -10,6 +10,7 @@ using namespace std;
 // - try/catch -- Google
 // - string.substr() -- Google
 // - string.find -- Google
+// - srand((unsigned)time(NULL)) -- Google
 
 //////////////////////////////
 
