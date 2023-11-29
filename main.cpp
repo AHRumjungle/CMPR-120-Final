@@ -17,8 +17,7 @@ using namespace std;
 // ## TODO ##
 //
 // # Thoughts #
-// - Ask user if they want to load stats if username matches a save stats file? - UNDER BRANCH 'read-stats'
-
+// 
 //////////////////////////////
 
 //Global Constants
@@ -38,7 +37,10 @@ void displayStats(double&, string&, int&, int&, int&, double&, double&); //All
 void saveStats(double&, string&, int&, int&, int&, double&, double&); //All
 void mainGame(double&, string&, int&, int&, int&, double&, double&); //All
 void getPlayerName(string&); //Pass name through
-
+bool readStats(double&, string&, int&, int&, int&, double&, double&); //All
+bool dosePlayerFileExist(string&); //Pass name through
+int extractInt(int, string&, int&); //Pass through current line and errors
+double extractDouble(int, string&, int&); //Pass through current line and errors
 /////////////////////////////
 
 
@@ -63,15 +65,52 @@ int main(){
     //Short pass through
     //double&, string&, int&, int&, int&, double&, double&
 
-    //If there is no player name (there will always be no name)
-    if(playerName == ""){
-        getPlayerName(playerName);
+
+    getPlayerName(playerName);
+
+
+
+
+    //Check for existing file and ask user if they want to load
+    if(dosePlayerFileExist(playerName)){
+
+        while(true){
+            system("cls");
+            cout << "Stats under this user name found!\n";
+            cout << "Do you want to load these stats? Y, N\n";
+
+            char choice = safeCharInput();
+
+            if(choice == 'Y'){
+
+                if(readStats(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss)){
+                    cout << "Stats loaded!\n";
+                    system("pause");
+                    break;
+                }
+                else{
+                    cout << "Error loading stats\n";
+                    system("pause");
+                    balance = 0.0;
+                    totalGames = 0;
+                    totalWins = 0;
+                    totalLosses = 0;
+                    totalMoneyWon = 0.0;
+                    totalMoneyLoss = 0.0;
+                    break;
+                }
+                
+
+            }
+            else if(choice == 'N'){
+                break;
+            }
+        }
+            
     }
-    //Add a 'config.txt' file to load default configs?
 
     //Run
     mainmenu(balance, playerName, totalGames, totalWins, totalLosses, totalMoneyWon, totalMoneyLoss);
-
 
 }
 
@@ -238,13 +277,9 @@ void saveStats(double& balance, string& playerName, int& totalGames, int& totalW
 
 
 
-    //Check for existing file
-    fstream existingFile;
-
-    existingFile.open(fileName);
 
     //If opening file with 'filename' works due to file exsisting, display message
-    if(!existingFile.fail()){
+    if(dosePlayerFileExist(playerName)){
         while(true){
             system("cls");
             cout << "!==WARNING==!\n";
@@ -261,7 +296,7 @@ void saveStats(double& balance, string& playerName, int& totalGames, int& totalW
             }
         }
     }
-    existingFile.close();
+
 
 
 
@@ -274,7 +309,7 @@ void saveStats(double& balance, string& playerName, int& totalGames, int& totalW
     outFile << "Total Games: " << totalGames << endl;
     outFile << "Total Wins: " << totalWins << endl;
     outFile << "Total Losses: " << totalLosses << endl;
-    
+
     outFile << fixed << showpoint << setprecision(2); //Formating
     outFile << "Total Money Won: $" << totalMoneyWon << endl;
     outFile << "Total Money Lost: $" << totalMoneyLoss;
@@ -575,4 +610,183 @@ void getPlayerName(string& playerName){
         cin.ignore(); //clear cin buffer
 
     }
+}
+
+////////////////
+
+bool dosePlayerFileExist(string& playerName){
+    
+    string userFirstName = playerName.substr(0, playerName.find(" ")); //Will extract the first word in the player name
+
+    string fileName = userFirstName + ".txt"; 
+
+
+    fstream existingFile;
+    existingFile.open(fileName);
+
+    //If opening file with 'filename' works due to file exsisting, display message
+    if(existingFile.fail()){
+        existingFile.close();
+        return false;
+    }else{
+        existingFile.close();
+        return true;
+    }
+    
+
+
+}
+
+///////////////
+
+//Will try to read the stats file named after the player first name/word
+//return true if successful, false if fail
+bool readStats(double& balance, string& playerName, int& totalGames, int& totalWins, int& totalLosses, double& totalMoneyWon, double& totalMoneyLoss){
+
+    string userFirstName = playerName.substr(0, playerName.find(" "));
+    string fileName = userFirstName + ".txt"; 
+
+
+    //Check if file exists
+    fstream existingFile;
+
+    existingFile.open(fileName);
+
+
+    if(existingFile.fail()){
+        cout << "==ERROR==\n";
+        cout << "File not found\n";
+        system("pause");
+        existingFile.close();
+        return false;
+    }else{
+        existingFile.close();
+    }
+    
+
+    //Current file structure:
+
+    /*
+    1 "Date & Time: " << __DATE__ << " " << __TIME__ << endl;
+    2 "Player Name: " << playerName << endl;
+    3 "Total Games: " << totalGames << endl;
+    4 "Total Wins: " << totalWins << endl;
+    5 "Total Losses: " << totalLosses << endl;
+    6 "Total Money Won: $" << totalMoneyWon << endl;
+    7 "Total Money Lost: $" << totalMoneyLoss;
+    */
+
+    ifstream inFile;
+
+    inFile.open(fileName);
+
+    string currentLine;
+
+    int errors = 0;
+
+    for(int i=1; i<=7; i++){
+    
+        if(inFile.eof()){
+            cout << "An error was found at line " << i << endl;
+
+            inFile.close();
+            return false;
+        }
+
+        getline(inFile, currentLine);
+
+        switch(i){
+            case(3):
+                totalGames = extractInt(13, currentLine, errors);
+                break;
+
+            case(4):
+                totalWins = extractInt(12, currentLine, errors);
+                break;
+
+            case(5):
+                totalLosses = extractInt(14, currentLine, errors);
+                break;
+
+            case(6):
+                totalMoneyWon = extractDouble(18, currentLine, errors);
+                break;
+
+            case(7):
+                totalMoneyLoss = extractDouble(19, currentLine, errors);
+                break;
+        }
+
+        if(errors > 0){
+            cout << "An error occured when trying to load this file at line " << i << endl;
+            system("pause");
+
+            inFile.close();
+            return false;
+        }
+
+
+    }
+
+    inFile.close();
+    return true;
+
+}
+
+///////////
+
+int extractInt(int endLine, string& currentLine, int& errors){
+
+    string workingString;
+
+
+    try{
+       workingString = currentLine.substr(endLine, currentLine.find(" "));
+    }
+    catch(std::out_of_range){
+        errors++;
+        return 0;
+    }
+
+    workingString = currentLine.substr(endLine, currentLine.find(" "));
+
+    try{
+        return stoi(workingString);
+    }
+    catch(std::invalid_argument){
+        errors++;
+        return 0;
+    }
+
+    return stoi(workingString);
+
+}
+
+/////////////////
+
+double extractDouble(int endLine, string& currentLine, int& errors){
+
+    string workingString;
+
+
+    try{
+       workingString = currentLine.substr(endLine, currentLine.find(" "));
+    }
+    catch(std::out_of_range){
+        errors++;
+        return 0.0;
+    }
+
+    workingString = currentLine.substr(endLine, currentLine.find(" "));
+
+    try{
+        return stod(workingString);
+    }
+    catch(std::invalid_argument){
+        errors++;
+        return 0.0;
+    }
+
+    return stod(workingString);
+
 }
